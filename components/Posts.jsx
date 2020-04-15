@@ -8,21 +8,24 @@ import db from '../firebase';
 
 function Posts(props) {
   const [posts, setPosts] = useState([]);
-  console.log('started the user log');
-  console.log(props.user);
-  console.log('ended the user log');
+  // console.log('started the user log');
+  // console.log(props.user);
+  // console.log('ended the user log');
 
   useEffect(() => {
-    let postRef = db.collection('post');
+    let postRef = db.collection('users').doc(props.user.uid).collection('post');
 
-    postRef.get().then((posts) => {
-      posts.forEach((post) => {
+    postRef.onSnapshot(async (posts) => {
+      // posts.forEach((post) => {
+
+      // });
+      let postsData = await posts.docs.map((post) => {
         let data = post.data();
         let { id } = post;
         let payload = { id, ...data };
-
-        setPosts((posts) => [...posts, payload]);
+        return payload;
       });
+      setPosts(postsData);
     });
   }, []);
 

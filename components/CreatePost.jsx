@@ -14,7 +14,7 @@ const CreatePost = (props) => {
   const onTitleChange = (e) => setTitle(event.target.value);
   const onContentChange = (e) => setContent(event.target.value);
   const onCreatePost = () => {
-    let postRef = db.collection('post');
+    let postRef = db.collection('users').doc(props.user.uid).collection('post');
 
     let payload = {
       title,

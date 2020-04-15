@@ -9,7 +9,11 @@ const Post = (props) => {
   let { id } = useParams();
 
   useEffect(() => {
-    let postRef = db.collection('post').doc(id);
+    let postRef = db
+      .collection('users')
+      .doc(props.user.uid)
+      .collection('post')
+      .doc(id);
 
     postRef.get().then((doc) => {
       let { content, title } = doc.data();

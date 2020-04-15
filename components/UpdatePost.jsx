@@ -6,6 +6,8 @@ import { useHistory, useParams } from 'react-router-dom';
 const { TextArea } = Input;
 
 const UpdatePost = (props) => {
+  console.log(props.user);
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -13,7 +15,11 @@ const UpdatePost = (props) => {
   let { id } = useParams();
 
   useEffect(() => {
-    let postRef = db.collection('post').doc(id);
+    let postRef = db
+      .collection('users')
+      .doc(props.user.uid)
+      .collection('post')
+      .doc(id);
 
     postRef.get().then((doc) => {
       let { content, title } = doc.data();
@@ -26,7 +32,11 @@ const UpdatePost = (props) => {
   const onContentChange = (e) => setContent(event.target.value);
 
   const onEditPost = () => {
-    let postRef = db.collection('post').doc(id);
+    let postRef = db
+      .collection('users')
+      .doc(props.user.uid)
+      .collection('post')
+      .doc(id);
 
     let payload = {
       title,

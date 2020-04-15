@@ -40,7 +40,7 @@ function App(props) {
           <Menu mode='horizontal'>
             <Menu.Item key='posts'>
               <ReadFilled />
-              <Link to='/posts'>Posts</Link>
+              <Link to={`/users/${user.uid}/posts`}>Posts</Link>
             </Menu.Item>
             {user && (
               <Menu.Item key='create_post'>
@@ -59,7 +59,7 @@ function App(props) {
         </div>
 
         <Switch>
-          <Route exact path='/posts'>
+          <Route exact path='/users/:uid/posts'>
             <Posts user={user} />
           </Route>
           <Route path='/sign_in'>
@@ -70,13 +70,13 @@ function App(props) {
           </Route>
 
           <Route path='/post/:id'>
-            <Post />
+            <Post user={user} />
           </Route>
           <Route path='/create_post'>
-            <CreatePost />
+            <CreatePost user={user} />
           </Route>
           <Route path='/update_post/:id'>
-            <UpdatePost />
+            <UpdatePost user={user} />
           </Route>
         </Switch>
       </Router>
